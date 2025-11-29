@@ -156,28 +156,63 @@ select * from orders;
 select * from payments;
 select * from productlines;
 select * from products;
+select distinct status from orders;
 
-
-SELECT customers.salesRepEmployeeNumber,
-       employees.firstName,
-       employees.lastName,
-       customers.customernumber
-FROM customers
-JOIN employees
-    ON customers.salesRepEmployeeNumber = employees.employeeNumber; 
-    SELECT 
+#* Who are the top 5 sales representatives based on revenue generated?#
+SELECT 
     e.employeeNumber,
-    e.firstName,
-    e.lastName,
+    CONCAT(e.firstName, ' ', e.lastName) AS salesRepName,
     SUM(od.quantityOrdered * od.priceEach) AS totalRevenue
-FROM employees e
-JOIN customers c 
-    ON e.employeeNumber = c.salesRepEmployeeNumber
+FROM customers c
+JOIN employees e 
+    ON c.salesRepEmployeeNumber = e.employeeNumber
 JOIN orders o 
     ON c.customerNumber = o.customerNumber
 JOIN orderdetails od 
     ON o.orderNumber = od.orderNumber
-GROUP BY e.employeeNumber, e.firstName, e.lastName
+GROUP BY e.employeeNumber, salesRepName
 ORDER BY totalRevenue DESC
 LIMIT 5;
 
+# Which product line generates the most revenue?#
+SELECT 
+    pl.productLine,
+    SUM(od.quantityOrdered * od.priceEach) AS totalRevenue
+FROM orderdetails od
+JOIN products p 
+    ON od.productCode = p.productCode
+JOIN productlines pl
+    ON p.productLine = pl.productLine
+GROUP BY pl.productLine
+ORDER BY totalRevenue DESC;
+
+# Are there products that have never been sold?
+SELECT 
+    p.productCode,
+    p.productName,
+    p.productLine
+FROM products p
+LEFT JOIN orderdetails od 
+    ON p.productCode = od.productCode
+WHERE od.productCode IS NULL;
+
+# How many orders were placed per month in the last year?
+SELECT 
+    YEAR(orderDate)  AS orderYear,
+    MONTH(orderDate) AS orderMonth,
+    COUNT(*) AS totalOrders
+FROM orders
+GROUP BY YEAR(orderDate), MONTH(orderDate)
+ORDER BY orderYear, orderMonth;
+
+#What are the most frequently ordered products?
+SELECT 
+    p.productCode,
+    p.productName,
+    SUM(od.quantityOrdered) AS totalQuantityOrdered
+FROM orderdetails od
+JOIN products p 
+    ON od.productCode = p.productCode
+GROUP BY p.productCode, p.productName
+ORDER BY totalQuantityOrdered DESC
+LIMIT 10;

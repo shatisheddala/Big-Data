@@ -1,0 +1,12 @@
+Final Bill
+Customer: sha
+Phone: hjbjklnl
+Address: 231wdws
+Date: 2025-11-29 14:39:25
+
+Items:
+Bread (1 loaf) x1 @ Rs 40 = Rs 40
+Milk (1 L) x1 @ Rs 60 = Rs 60
+Items total: Rs 100
+Delivery charge: Rs 100
+TOTAL PAYABLE: Rs 200

@@ -1,0 +1,11 @@
+Final Bill
+Customer: swetha
+Phone: 57687
+Address: hgfhkgukn
+Date: 2025-11-29 14:35:56
+
+Items:
+Apples (1 kg) x1 @ Rs 120 = Rs 120
+Items total: Rs 120
+Delivery charge: Rs 50
+TOTAL PAYABLE: Rs 170
