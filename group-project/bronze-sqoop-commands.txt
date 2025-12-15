@@ -1,0 +1,15 @@
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table country --target-dir UKUS18nov/Joshua/soccer-project/bronze/country --as-parquetfile -m 1
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table league --target-dir UKUS18nov/Joshua/soccer-project/bronze/league --as-parquetfile -m 1
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table match --target-dir UKUS18nov/Joshua/soccer-project/bronze/match  --split-by match_api_id --as-parquetfile -m 8
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table player_attributes --target-dir UKUS18nov/Joshua/soccer-project/bronze/player_attributes --split-by id --as-parquetfile -m 8
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table player --target-dir UKUS18nov/Joshua/soccer-project/bronze/player --split-by id --as-parquetfile -m 4
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table team_attributes --target-dir UKUS18nov/Joshua/soccer-project/bronze/team_attributes --split-by id --as-parquetfile -m 4
+
+sqoop import --connect jdbc:postgresql://18.134.163.221:5432/testdb?currentSchema=soccer_db --username admin --password admin123 --table team --target-dir UKUS18nov/Joshua/soccer-project/bronze/team --as-parquetfile -m 1
+
